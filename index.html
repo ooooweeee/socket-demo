@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>WebSocket</h1>
+    <button type="button" onclick="testClick()">Click Me!</button>
+
+    <script>
+      var socket = new WebSocket('ws://127.0.0.1:3000')
+      socket.onopen = function () {
+        console.log('通道已打开')
+        socket.send('OpenBarScanner')
+      }
+      socket.onmessage = function (evt) {
+        console.log('接收到服务端消息', evt.data)
+      }
+      socket.onclose = function () {
+        console.log('与服务端断开连接')
+      }
+      socket.onerror = function (err) {
+        console.error('链接错误', err)
+      }
+
+      function testClick() {
+        socket.send("I'm client")
+      }
+    </script>
+  </body>
+</html>
